@@ -87,7 +87,7 @@ const EventSchema = new Schema(
 );
 
 // 🔥 Pre-save hook
-EventSchema.pre("save", function (next) {
+EventSchema.pre("save", async function () {
     const event = this;
 
     if (event.isModified("title") || event.isNew) {
@@ -101,9 +101,8 @@ EventSchema.pre("save", function (next) {
     if (event.isModified("time")) {
         event.time = normalizeTime(event.time);
     }
-
-    next();
 });
+
 
 // ================= HELPER FUNCTIONS =================
 
